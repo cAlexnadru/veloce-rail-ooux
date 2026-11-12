@@ -1,0 +1,26 @@
+August in Rome does not forgive bad software.
+
+I was standing inside the cavernous concrete oven of Roma Termini, the August heat radiating off the travertine floor while a subtle knot of high-stakes logistics tightened in my chest. Cristina and I were heading south toward the coast and the ferry to Procida—a trip where I had an engagement ring tucked safely away and zero desire to miss our connection. All I needed from the Trenitalia app was two tickets, two adjacent seats, and a confirmed track number.
+
+Instead, I got a masterclass in hostile systems architecture.
+
+First came the glare test. Under the blinding Roman sun cutting through the terminal glass, Trenitalia’s low-contrast `#C8102E` brand red and pale gray labels dissolved into an unreadable smear. When I stepped into the shade and switched apps for ninety seconds to double-check our ferry window and message Cristina, the app punished me with its infamous 15-minute session purge—wiping our selected trains, passenger details, and fare tiers back to a blank screen.
+
+On attempt two, I made the mistake of tapping the seat map before locking the second passenger counter on Screen 1, triggering a silent, unlabelled UI lock that refused to select a second seat without telling me why. When we finally reached checkout, the payment gateway choked and spat out a raw localization string—`label_payment_failed_title`—like a developer's debug console mocking us while the departure clock ticked down.
+
+Even after the tickets went through, the anxiety didn't stop. Our itinerary mixed a high-speed *Frecciarossa* leg with a connecting *Regionale* segment. In Trenitalia’s database, those are two completely different legal universes; in the app, they were homogenized into a single confusing feed that buried the mandatory regional **Digital Check-In** button (`Convalida Digitale`) behind nested menus. And as we sprinted across the concourse, the overhead station *Tabellone* flipped our departure from Track 11 to Track 14 three full minutes before the app’s batch API bothered to catch up.
+
+Sitting on that train as it finally pulled out of Rome—and later, after Cristina said *yes* on the pastel-colored shores of Procida—my UX designer brain couldn't let that Termini meltdown go. I realized Trenitalia hadn't built an app for travelers; they had built a glass window over their legacy PICO and RFI databases, forcing human beings with luggage and racing heartbeats to act as human compilers.
+
+That August afternoon in Rome is why **Veloce // Rail** exists. Every architectural choice in this redesign is a direct scar from that trip:
+
+* **The `7.1:1` Olive (`#446300`) and `15.8:1` Night-Glare Lime (`#BFFF00`) WCAG 2.2 AAA palette** was forged specifically to cut through Italian summer sunlight.
+
+
+* **The OOUX Object Model** separates **Calm Discovery** (when you're booking on a sofa) from the **Live Transit HUD** (when you're walking fast toward a platform with full `FROM` and `TO` station names and a 3D flip-badge screaming **`11 → TRACK 14`**).
+
+
+* **Direct Manipulation** means tapping a second seat on the `50x50px` squircle coach map automatically adds a second adult (`1 → 2 Adults`) instead of locking up, while local state persistence ensures checking a message never purges your cart[cite: 1, 11].
+* **Offline Cryptographic Check-In (`⚡ Offline Verified`)** guarantees that even when your train dives into a dead-zone tunnel along the coast, your regional ticket validates locally via your device clock—no €50 conductor fines, no raw error strings, and no missed connections[cite: 1, 8, 11].
+
+I went to Italy that summer to ask the most important question of my life; I came back determined to make sure no traveler ever has to fight a railway database just to catch their train.
